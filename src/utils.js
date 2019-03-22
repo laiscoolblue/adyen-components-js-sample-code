@@ -1,10 +1,12 @@
-const paymentMethodsConfig = {
-    shopperReference: `Checkout Components sample code test`,
-    reference: `Checkout Components sample code test`,
-    countryCode: 'NL',
-    amount: {
-        value: 1000,
-        currency: 'EUR'
+const paymentMethodsConfig = (country = 'NL') => {
+    return {
+        shopperReference: `Checkout Components sample code test`,
+        reference: `Checkout Components sample code test`,
+        countryCode: country,
+        amount: {
+            value: 1000,
+            currency: 'EUR'
+        }
     }
 };
 
@@ -43,8 +45,8 @@ const httpPost = (endpoint, data) =>
     }).then(response => response.json());
 
 // Get all available payment methods from the local server
-const getPaymentMethods = () =>
-    httpPost('paymentMethods', paymentMethodsConfig)
+const getPaymentMethods = (country = 'NL') =>
+    httpPost('paymentMethods', paymentMethodsConfig(country))
         .then(response => {
             if (response.error) throw 'No paymentMethods available';
 
@@ -69,8 +71,8 @@ const makePayment = (paymentMethod, config = {}) => {
 };
 
 // Fetches an originKey from the local server
-const getOriginKey = () =>
-    httpPost('originKeys', paymentMethodsConfig)
+const getOriginKey = (country = 'NL') =>
+    httpPost('originKeys', paymentMethodsConfig(country))
         .then(response => {
             if (response.error || !response.originKeys) throw 'No originKey available';
 
