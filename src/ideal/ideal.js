@@ -1,7 +1,7 @@
 getPaymentMethods().then(response => {
     // 0. Find iDEAL data in the /paymentMethods response
     const idealData = response.paymentMethods.find(pm => pm.type === 'ideal');
-
+    console.log({ idealData });
     // 1. Create an instance of AdyenCheckout
     const checkout = new AdyenCheckout();
 
